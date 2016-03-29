@@ -11,25 +11,17 @@ describe("Airport", function() {
       airport = {
         isStormy: false
       };
-      plane = {
-        land: 'this does not matter'
-      };
-      landSpy = spyOn(plane, "land");
-      // var weather = jasmine.createSpyObj("weather", ["isStormy"]);
-      // weather.andCallFake(function() {return false;})
-      // var weather = jasmine.createSpy("weather");
-      // weather.isStormy.andReturn(false);
-      // spyOn(weather, "isStormy").and.callFake(function() { return false; })
     });
 
     describe("Landing planes", function() {
       it("should add planes after landing", function() {
+        airport = new Airport();
+        console.log(airport);
         plane = {
           isLanded: false,
+          land: "Landing..."
         };
-        expect(landSpy).toHaveBeenCalled();
-        // plane.isLanded.andReturn(false);
-        airport.accept(plane);
+        airport.acceptPlane(plane);
         expect(airport.planes).toContain(plane);
       });
     });
