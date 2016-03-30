@@ -4,8 +4,10 @@ describe("Airport", function() {
   beforeEach(function() {
     airport = new Airport();
     plane = {
+      landing: function() {},
       takeOff: function() {}
     };
+    spyOn(plane, "landing");
     spyOn(plane, "takeOff");
   });
 
@@ -22,14 +24,29 @@ describe("Airport", function() {
     expect(airport.capacity).toEqual(10);
   });
 
-  describe("#requestTakeoff", function() {
+  describe("#requestLanding", function() {
     it("should add the plane to the array", function() {
-      airport.requestTakeoff(plane);
+      airport.requestLanding(plane);
       expect(airport.planes).toContain(plane);
     });
 
-    it("should call takeOff method on plane", function() {
+    it("should call landing method on plane", function() {
+      expect(plane.landing.calls.any()).toEqual(false);
+      airport.requestLanding(plane);
+      expect(plane.landing.calls.any()).toEqual(true);
+    });
+  });
+
+  describe("#requestTakeoff", function() {
+    it("should delete plane from the array", function(){
+      airport.requestLanding(plane);
+      airport.requestTakeoff(plane);
+      expect(airport.planes).not.toContain(plane);
+    });
+
+    it("should call takeOff method on plane", function(){
       expect(plane.takeOff.calls.any()).toEqual(false);
+      airport.requestLanding(plane);
       airport.requestTakeoff(plane);
       expect(plane.takeOff.calls.any()).toEqual(true);
     });
