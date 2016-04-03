@@ -2,7 +2,11 @@ function Plane() {
   this.flying = false;
 }
 
-Plane.prototype.land = function () {
+Plane.prototype.land = function() {
+  this._changeFlyingStatus();
+};
+
+Plane.prototype.takeOff = function() {
   this._changeFlyingStatus();
 };
 

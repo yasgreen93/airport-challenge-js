@@ -4,9 +4,11 @@ describe("Airport", function() {
   beforeEach(function() {
     airport = new Airport();
     plane = {
-      land: function() {}
+      land: function() {},
+      takeOff: function() {}
     };
     spyOn(plane, "land");
+    spyOn(plane, "takeOff");
   });
 
   it("should have an empty hangar array", function() {
@@ -23,6 +25,18 @@ describe("Airport", function() {
       airport.acceptPlane(plane);
       expect(airport.hangar).toContain(plane);
     });
+  });
 
+  describe("#releasePlane", function() {
+    it("should call takeOff function on plane", function() {
+      airport.releasePlane(plane);
+      expect(plane.takeOff.calls.any()).toEqual(true);
+    });
+
+    it("should delete that plane from the hangar array", function() {
+      airport.acceptPlane(plane);
+      airport.releasePlane(plane);
+      expect(airport.hangar).toEqual([]);
+    });
   });
 });

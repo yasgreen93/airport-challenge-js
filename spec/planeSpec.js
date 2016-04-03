@@ -12,8 +12,15 @@ describe("Plane", function() {
   });
 
   describe("#land", function() {
-    it("should call _changeFlyingStatus function", function() {
+    it("should call _changeFlyingStatus", function() {
       spyPlane.land();
+      expect(spyPlane._changeFlyingStatus.calls.any()).toEqual(true);
+    });
+  });
+
+  describe("#takeOff", function() {
+    it("should call _changeFlyingStatus", function() {
+      spyPlane.takeOff();
       expect(spyPlane._changeFlyingStatus.calls.any()).toEqual(true);
     });
   });
