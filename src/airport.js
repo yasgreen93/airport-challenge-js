@@ -1,10 +1,17 @@
+var DEFAULT_CAPACITY = 10;
+
 function Airport() {
   this.hangar = [];
+  this.capacity = DEFAULT_CAPACITY;
 }
 
 Airport.prototype.acceptPlane = function(plane) {
-  plane.land();
-  this.hangar.push(plane);
+  if(this.hangar.length === DEFAULT_CAPACITY) {
+    throw("Airport at full capacity");
+  } else {
+    plane.land();
+    this.hangar.push(plane);
+  }
 };
 
 Airport.prototype.releasePlane = function(plane) {
